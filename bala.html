@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Happy Birthday Bala 💙</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family: 'Segoe UI', sans-serif;
+}
+body{
+    background: linear-gradient(135deg,#ffdde1,#ee9ca7);
+    height:100vh;
+    overflow:hidden;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+/* ---------- Falling Hearts ---------- */
+.hearts{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    pointer-events:none;
+    overflow:hidden;
+}
+.heart{
+    position:absolute;
+    color:rgba(255,0,100,0.7);
+    font-size:20px;
+    animation: fall linear infinite;
+}
+@keyframes fall{
+    0%{transform:translateY(-10vh) scale(1); opacity:1;}
+    100%{transform:translateY(110vh) scale(0.6); opacity:0;}
+}
+
+/* ---------- Pages ---------- */
+.page{
+    display:none;
+    text-align:center;
+    animation: fadeIn 1.2s ease;
+}
+.page.active{
+    display:block;
+}
+
+@keyframes fadeIn{
+    from{opacity:0; transform:scale(0.9);}
+    to{opacity:1; transform:scale(1);}
+}
+
+/* ---------- Glowing Name ---------- */
+.glow{
+    font-size:42px;
+    color:white;
+    text-shadow:
+      0 0 10px #ff4d6d,
+      0 0 20px #ff4d6d,
+      0 0 40px #ff8fab;
+    animation: glowPulse 2s infinite alternate;
+}
+@keyframes glowPulse{
+    from{opacity:0.8;}
+    to{opacity:1;}
+}
+
+/* ---------- Envelope ---------- */
+.envelope{
+    width:300px;
+    height:200px;
+    background:#fff;
+    position:relative;
+    border-radius:12px;
+    box-shadow:0 15px 30px rgba(0,0,0,0.3);
+    animation: bounce 2s infinite;
+}
+@keyframes bounce{
+    0%,100%{transform:translateY(0);}
+    50%{transform:translateY(-12px);}
+}
+.envelope::before{
+    content:"";
+    position:absolute;
+    top:-100px;
+    left:0;
+    width:0;
+    height:0;
+    border-left:150px solid transparent;
+    border-right:150px solid transparent;
+    border-bottom:100px solid #ff6f91;
+}
+
+/* ---------- Buttons ---------- */
+.btn{
+    padding:12px 25px;
+    margin:15px;
+    border:none;
+    border-radius:30px;
+    font-size:16px;
+    cursor:pointer;
+    transition:0.3s;
+}
+.btn:hover{
+    transform:scale(1.1);
+}
+.yes{
+    background:#4CAF50;
+    color:white;
+}
+.no{
+    background:#f44336;
+    color:white;
+    position:absolute;
+}
+
+/* ---------- Final Message ---------- */
+.final{
+    background:linear-gradient(135deg,#ffffff,#ffe6f0);
+    padding:35px;
+    border-radius:22px;
+    width:85%;
+    max-width:520px;
+    box-shadow:0 20px 40px rgba(0,0,0,0.3);
+    animation: float 3s ease-in-out infinite;
+}
+@keyframes float{
+    0%,100%{transform:translateY(0);}
+    50%{transform:translateY(-15px);}
+}
+.final p{
+    font-size:17px;
+    line-height:1.7;
+    color:#333;
+}
+</style>
+</head>
+
+<body>
+
+<!-- Falling hearts container -->
+<div class="hearts" id="hearts"></div>
+
+<!-- PAGE 1 -->
+<div class="page active" id="page1">
+    <div class="envelope"></div>
+    <br>
+    <button class="btn yes" onclick="nextPage(2)">
+        Open Envelope 💌
+    </button>
+</div>
+
+<!-- PAGE 2 -->
+<div class="page" id="page2">
+    <h1 class="glow">Happy Birthday Bala 🎂💖</h1>
+    <p style="margin-top:15px;">You deserve all the love today ✨</p>
+    <button class="btn yes" onclick="nextPage(3)">
+        Here is a surprise for you 🎁
+    </button>
+</div>
+
+<!-- PAGE 3 -->
+<div class="page" id="page3">
+    <h2>Will you be my friend forever? 🤍</h2>
+    <br>
+    <button class="btn yes" onclick="nextPage(4)">Yes 💕</button>
+    <button class="btn no" id="noBtn">No 😜</button>
+    <p id="funny" style="margin-top:80px;"></p>
+</div>
+
+<!-- PAGE 4 -->
+<div class="page" id="page4">
+    <div class="final">
+        <h2 class="glow">Bala 💙✨</h2>
+        <p>
+            I may have many friends, but among them, you are someone truly special 💫.<br><br>
+
+            We got to know each other in 10th class, and within just one year, we became very close 🤍.
+            I feel very comfortable sharing everything with you.<br><br>
+
+            Maybe I’m not a perfect friend, but I’m always there for you 🌸.<br><br>
+
+            One crazy thing is that we never even took a proper photo together 😄📸.
+            Sometimes I act a bit crazy, and I pray that God gives you the patience to tolerate all of that 🙈🙏.<br><br>
+
+            I truly wish that our friendship keeps growing like this forever 💞🤝.<br><br>
+
+            <b>Love you, Bala 💙✨</b>
+        </p>
+    </div>
+</div>
+
+<script>
+function nextPage(n){
+    document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+    document.getElementById('page'+n).classList.add('active');
+}
+
+/* Funny NO button */
+const noBtn = document.getElementById("noBtn");
+const funny = document.getElementById("funny");
+const msgs = [
+    "No option not available 😆",
+    "Try again 😜",
+    "Wrong button 😂",
+    "Only YES works 💕"
+];
+let i=0;
+
+noBtn.addEventListener("mouseover",()=>{
+    const x = Math.random()*200 - 100;
+    const y = Math.random()*200 - 100;
+    noBtn.style.transform = `translate(${x}px,${y}px) rotate(360deg)`;
+    funny.innerText = msgs[i%msgs.length];
+    i++;
+});
+
+/* Create falling hearts */
+const hearts = document.getElementById("hearts");
+setInterval(()=>{
+    const heart = document.createElement("div");
+    heart.classList.add("heart");
+    heart.innerText = "💖";
+    heart.style.left = Math.random()*100 + "vw";
+    heart.style.fontSize = (Math.random()*20 + 15) + "px";
+    heart.style.animationDuration = (Math.random()*3 + 4) + "s";
+    hearts.appendChild(heart);
+    setTimeout(()=>heart.remove(),7000);
+},300);
+</script>
+
+</body>
+</html>
